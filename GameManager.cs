@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject PlayButton;
 
     public GameObject gameover;
+    public GameObject getready;
     private int score;
 
     private void Awake()
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
 
         PlayButton.SetActive(false);
         gameover.SetActive(false);
+        getready.SetActive(false);
 
         Time.timeScale = 1f;
         player.enabled = true;
@@ -55,4 +57,5 @@ public class GameManager : MonoBehaviour
         score++;
         scoreText.text = score.ToString();
     }
+    
 }
