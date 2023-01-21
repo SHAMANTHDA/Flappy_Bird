@@ -16,6 +16,20 @@ public class Player : MonoBehaviour
 
     public float strength = 5f;
 
+    [SerializeField]
+    private AudioSource Jumpsfx;
+
+    [SerializeField]
+    private AudioSource Scoresfx;
+
+    [SerializeField]
+    private AudioSource Deathsfx;
+
+    [SerializeField]
+    private AudioSource BGMsfx;
+
+
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -35,6 +49,7 @@ public class Player : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
+            Jumpsfx.Play();
             direction = Vector3.up * strength;
         }
         if (Input.touchCount > 0)
@@ -66,10 +81,13 @@ public class Player : MonoBehaviour
     {
         if(other.gameObject.tag == "Obstacle")
         {
+            Deathsfx.Play();
+            BGMsfx.Stop();
             FindObjectOfType<GameManager>().GameOver();
         }
         else if(other.gameObject.tag == "Scoring")
         {
+            Scoresfx.Play();
             FindObjectOfType<GameManager>().IncreaseScore();
         }
     }

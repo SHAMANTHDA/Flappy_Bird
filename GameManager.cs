@@ -12,18 +12,25 @@ public class GameManager : MonoBehaviour
     public GameObject PlayButton;
 
     public GameObject gameover;
+
     public GameObject getready;
+
     private int score;
+
 
     private void Awake()
     {
         Application.targetFrameRate = 60;
         Pause();
     }
+
+
+
     public void Play()
     {
         score = 0;
         scoreText.text = score.ToString();
+
 
         PlayButton.SetActive(false);
         gameover.SetActive(false);
