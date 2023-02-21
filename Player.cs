@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
+
 
     public Sprite[] sprites;
 
@@ -28,14 +31,17 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioSource BGMsfx;
 
-
-
+    
+    
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
+    
     private void OnEnable()
     {
+        
         Vector3 position = transform.position;
         position.y = 0f;
         transform.position = position;
@@ -43,6 +49,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
+
         InvokeRepeating(nameof(AnimateSprite), 0.15f, 0.15f);    
     }
     private void Update()
@@ -84,11 +91,20 @@ public class Player : MonoBehaviour
             Deathsfx.Play();
             BGMsfx.Stop();
             FindObjectOfType<GameManager>().GameOver();
+            StartCoroutine(PlayerAfterSeconds(1));
+            
+            
         }
         else if(other.gameObject.tag == "Scoring")
         {
             Scoresfx.Play();
             FindObjectOfType<GameManager>().IncreaseScore();
         }
+    }
+
+      IEnumerator  PlayerAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        BGMsfx.Play();
     }
 }

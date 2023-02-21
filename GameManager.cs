@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -15,19 +17,36 @@ public class GameManager : MonoBehaviour
 
     public GameObject getready;
 
+
+    private Sprite playersprite;
+
     private int score;
 
+    //private void Start()
+    //{
+    //    SelectSkin(skins);
+    //    playersprite = selectedskin[skins].GetComponent<SpriteRenderer>().sprite;
+
+    //    Player.GetComponent<SpriteRenderer>().sprite = playersprite; 
+    //}
+
+   
 
     private void Awake()
     {
         Application.targetFrameRate = 60;
+        
         Pause();
     }
 
-
+    private void Start()
+    {
+        
+    }
 
     public void Play()
     {
+        
         score = 0;
         scoreText.text = score.ToString();
 
@@ -37,7 +56,7 @@ public class GameManager : MonoBehaviour
         getready.SetActive(false);
 
         Time.timeScale = 1f;
-        player.enabled = true;
+        //player.enabled = true;
 
         Pipes[] pipes = FindObjectsOfType<Pipes>();
 
@@ -49,16 +68,18 @@ public class GameManager : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0f;
-        player.enabled = false;
+
+        //player.enabled = false;
     }
 
     public void GameOver()
     {
         gameover.SetActive(true);
         PlayButton.SetActive(true);
-
+        score = 0;
         Pause();
     }
+
     public void IncreaseScore()
     {
         score++;
